@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="hero">
+  <div class="hero-art"><img src="{{ url_for('static', filename='img/banner-zumbi.jpg') }}" alt="Horda zumbi — Linux Survival"></div>
+  <div class="shade"></div>
+  <div class="inner">
+    <p class="sub">Sobrevivente: <b>{{ user }}</b> • <b>{{ total_ok }}/{{ total }}</b> tarefas • ⚡ {{ xp }} XP</p>
+    <div class="bar"><i style="width:{{ (total_ok/total*100) if total else 0 }}%"></i></div>
+    <p><a class="btn ghost" href="{{ url_for('terminal') }}">💻 Terminal livre</a>
+    <a class="btn" href="{{ url_for('quiz') }}">🏁 Quiz Final</a></p>
+  </div>
+</div>
+
+<div class="secao-titulo"><h2>📚 Aprender — missões guiadas</h2></div>
+<p style="color:var(--muted)">Com teoria + passo a passo.</p>
+<div class="grid">
+{% for m in c.missoes %}
+{% set st = prog[m.id|string] %}
+<div class="missao-card {% if st.prontos==st.total %}done{% endif %}">
+  <span class="badge {% if st.prontos==st.total %}ok{% endif %}">{{ m.ato }}</span>
+  <h3>{{ m.titulo }}</h3>
+  <p>✅ {{ st.prontos }}/{{ st.total }} tarefas</p>
+  <a class="btn violet" href="{{ url_for('missao', mid=m.id) }}">Jogar →</a>
+</div>
+{% endfor %}
+</div>
+
+<div class="secao-titulo" id="desafios"><h2>🔒 Desafios — sem resposta! 😎</h2></div>
+<p style="color:var(--muted)">Só o objetivo e uma dica vaga. Valem XP e moral. Complete depois de estudar o ato.</p>
+<div class="grid">
+{% for d in c.desafios %}
+{% set st = prog[d.id|string] %}
+<div class="missao-card lock {% if st.prontos==st.total %}done{% endif %}">
+  <span class="badge {% if st.prontos==st.total %}ok{% endif %}">{{ d.ato }}</span>
+  <span class="badge xp">+{{ d.xp }} XP</span>
+  <h3>{{ d.titulo }}</h3>
+  <p>✅ {{ st.prontos }}/{{ st.total }} objetivos</p>
+  <a class="btn pink" href="{{ url_for('desafio', did=d.id) }}">Aceitar 🔒</a>
+</div>
+{% endfor %}
+</div>
+{% endblock %}

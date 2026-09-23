@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+<p><a href="{{ url_for('mapa') }}">← Voltar à trilha</a></p>
+<span class="badge">🔒 DESAFIO — SEM RESPOSTA</span> <span class="badge xp">+{{ d.xp }} XP</span>
+<h1>{{ d.titulo }}</h1>
+<div class="card"><p>😎 <i>{{ d.historia }}</i></p></div>
+<div class="card pop">
+  <h3>🎯 Seu objetivo</h3>
+  <p style="font-size:1.05rem">{{ d.objetivo }}</p>
+  <p>💭 <b>Dica vaga:</b> {{ d.dica_vaga }}</p>
+</div>
+<div class="grid" style="grid-template-columns:1fr 1fr">
+<div class="card">
+  <h3>✅ Objetivos <span id="placar"></span></h3>
+  <div id="tarefas">
+  {% for t in d.tarefas %}
+    <div class="tarefa" data-tid="{{ t.id }}"><span class="box">⬜</span><span>{{ t.texto }}</span></div>
+  {% endfor %}
+  </div>
+  <div id="vitoria"></div>
+  <p><a class="btn ghost" href="{{ url_for('mapa') }}#desafios">← Todos os desafios</a>
+  <a class="btn pink" href="{{ url_for('quiz') }}">Fazer o Quiz 🏁</a></p>
+</div>
+<div>
+  <div class="terminal">
+    <div class="term-head"><span class="dot" style="background:#fb7185"></span><span class="dot" style="background:#fbbf24"></span><span class="dot" style="background:#a3e635"></span> &nbsp;{{ user }}@linux — bash</div>
+    <div class="term-body" id="tbody"></div>
+    <div class="term-input-row"><span id="prompt">⚡ {{ user }}@linux:$</span><input id="tinput" autocomplete="off" spellcheck="false" placeholder="sem dica... você consegue!"></div>
+  </div>
+  <form id="resetf" style="margin-top:8px"><button class="btn ghost" type="submit">♻️ Reiniciar meu mundo</button></form>
+</div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='terminal.js') }}"></script>
+<script>
+const DID = "{{ d.id }}";
+initTerminal("tbody", "tinput", "prompt");
+window.atualizarTarefas = function(prog){
+  const st = prog[String(DID)];
+  if(!st) return;
+  let ok = 0;
+  document.querySelectorAll("#tarefas .tarefa").forEach((el, i)=>{
+    const feita = st.feitos[i];
+    if(feita){ ok++; el.classList.add("feita"); el.querySelector(".box").textContent = "✅"; }
+    else { el.classList.remove("feita"); el.querySelector(".box").textContent = "⬜"; }
+  });
+  document.getElementById("placar").textContent = `(${ok}/${st.total})`;
+  document.getElementById("vitoria").innerHTML = ok === st.total
+    ? `<div class="ok-box">🏆 DESAFIO VENCIDO! +{{ d.xp }} XP! Você é brabo(a)! 😎</div>` : "";
+};
+document.getElementById("resetf").addEventListener("submit", async e=>{
+  e.preventDefault();
+  await fetch("/api/reset", {method:"POST"});
+  location.reload();
+});
+document.getElementById("tinput").focus();
+</script>
+{% endblock %}

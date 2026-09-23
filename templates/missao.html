@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+<p><a href="{{ url_for('mapa') }}">← Voltar ao mapa</a></p>
+<span class="badge">{{ m.ato }}</span>
+<h1>{{ m.titulo }}</h1>
+<div class="card"><p>🧟 <i>{{ m.historia }}</i></p></div>
+<div class="card green">
+  <h3>📖 Teoria rápida</h3>
+  <p>{{ m.teoria }}</p>
+  <p>Comandos desta missão:
+  {% for cmd in m.comandos %}<code>{{ cmd }}</code> {% endfor %}</p>
+</div>
+<div class="grid" style="grid-template-columns:1fr 1fr">
+<div class="card">
+  <h3>🎯 Tarefas <span id="placar"></span></h3>
+  <div id="tarefas">
+  {% for t in m.tarefas %}
+    <div class="tarefa" data-tid="{{ t.id }}"><span class="box">⬜</span><span>{{ t.texto }}</span></div>
+  {% endfor %}
+  </div>
+  <div id="vitoria"></div>
+  <p>
+  {% if anterior %}<a class="btn ghost" href="{{ url_for('missao', mid=anterior) }}">← Missão {{ anterior }}</a>{% endif %}
+  {% if proxima %}<a class="btn" href="{{ url_for('missao', mid=proxima) }}">Missão {{ proxima }} →</a>
+  {% else %}<a class="btn" href="{{ url_for('quiz') }}">🏁 Quiz Final →</a>{% endif %}
+  </p>
+</div>
+<div>
+  <div class="terminal">
+    <div class="term-head"><span class="dot" style="background:#a4161a"></span><span class="dot" style="background:#ffb703"></span><span class="dot" style="background:#39ff14"></span> &nbsp;sobrevivente@abrigo — bash</div>
+    <div class="term-body" id="tbody"></div>
+    <div class="term-input-row"><span id="prompt">🧟 sobrevivente@abrigo:$</span><input id="tinput" autocomplete="off" spellcheck="false" placeholder="digite o comando e Enter..."></div>
+  </div>
+  <form id="resetf" style="margin-top:8px"><button class="btn ghost" type="submit">♻️ Reiniciar mundo (reset FS)</button></form>
+</div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='terminal.js') }}"></script>
+<script>
+const MID = "{{ m.id }}";
+const TAREFAS = {{ m.tarefas | tojson }};
+initTerminal("tbody", "tinput", "prompt");
+window.atualizarTarefas = function(prog){
+  const st = prog[String(MID)];
+  if(!st) return;
+  let ok = 0;
+  document.querySelectorAll("#tarefas .tarefa").forEach((el, i)=>{
+    const feita = st.feitos[i];
+    if(feita){ ok++; el.classList.add("feita"); el.querySelector(".box").textContent = "✅"; }
+    else { el.classList.remove("feita"); el.querySelector(".box").textContent = "⬜"; }
+  });
+  document.getElementById("placar").textContent = `(${ok}/${st.total})`;
+  document.getElementById("vitoria").innerHTML = ok === st.total
+    ? `<div class="ok-box">🎉 Missão cumprida! Pode avançar, sobrevivente!</div>` : "";
+};
+document.getElementById("resetf").addEventListener("submit", async e=>{
+  e.preventDefault();
+  await fetch("/api/reset", {method:"POST"});
+  location.reload();
+});
+document.getElementById("tinput").focus();
+</script>
+{% endblock %}

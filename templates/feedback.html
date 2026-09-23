@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{% if last.acertou %}✅ Boa!!{% else %}❌ Quase...{% endif %}</h1>
+<div class="card {% if last.acertou %}pop{% endif %}">
+<p><span class="badge">{{ last.tema }}</span> Questão {{ last.n }}</p>
+<h3>{{ last.titulo }}</h3>
+<ul>
+{% for op in last.opcoes %}
+<li {% if loop.index0==last.correta %}style="color:var(--lime);font-weight:bold"{% endif %}>{{ letters[loop.index0] }}) {{ op }} {% if loop.index0==last.correta %}✔{% endif %} {% if loop.index0==last.escolha and not last.acertou %}← sua resposta{% endif %}</li>
+{% endfor %}
+</ul>
+<p>💡 <b>Por quê?</b> {{ last.explicacao }}</p>
+</div>
+<div class="bar"><i style="width:{{ progresso }}%"></i></div>
+<p>{% if ultima %}<a class="btn" href="{{ url_fim }}">Ver meu resultado 🏆</a>{% else %}<a class="btn" href="{{ url_proxima }}">Próxima →</a>{% endif %}</p>
+{% endblock %}

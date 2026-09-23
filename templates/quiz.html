@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ modo_nome }} — Questão {{ idx+1 }}/{{ total }}</h1>
+<div class="bar"><i style="width:{{ progresso }}%"></i></div>
+<p>Sobrevivente: <b>{{ user }}</b> • Tema: <span class="badge">{{ q.tema }}</span></p>
+<div class="card"><h2>{{ q.titulo }}</h2>
+<form method="post">
+{% for op in q.opcoes %}
+<label class="opcao"><input type="radio" name="escolha" value="{{ loop.index0 }}" required> <b>{{ letters[loop.index0] }})</b> {{ op }}</label>
+{% endfor %}
+<button class="btn" type="submit">Confirmar →</button>
+</form></div>
+{% endblock %}

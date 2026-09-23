@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>☣ LINUX SURVIVAL — Sobreviva ao terminal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="evento">Faculdade Serra Dourada &nbsp;•&nbsp; Semana Acadêmica 2026 &nbsp;•&nbsp; Prof. Me. Matheus Marques</div>
+<div class="topbar">
+  <div class="logo">☣ LINUX <span>SURVIVAL</span></div>
+  <nav>
+    {% if session.get('user') %}
+    <a href="{{ url_for('mapa') }}">Trilha</a>
+    <a href="{{ url_for('terminal') }}">Terminal</a>
+    <a href="{{ url_for('quiz') }}">Quiz Final</a>
+    <a href="{{ url_for('ranking') }}">Ranking</a>
+    <a href="{{ url_for('sair') }}">Sair</a>
+    {% endif %}
+  </nav>
+</div>
+<div class="wrap">
+{% block content %}{% endblock %}
+</div>
+<footer>
+  <span class="evento-nome">Faculdade Serra Dourada • Semana Acadêmica 2026 • Prof. Me. Matheus Marques</span><br>
+  ☣ Linux Survival • aula de 2h • Flask + JSON (sem banco) • roda no PythonAnywhere
+</footer>
+{% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="hero">
+  <div class="hero-art"><img src="{{ url_for('static', filename='img/banner-zumbi.jpg') }}" alt="Horda zumbi — Linux Survival"></div>
+  <div class="shade"></div>
+  <div class="inner">
+    <span class="stamp">Faculdade Serra Dourada • Semana Acadêmica 2026</span>
+    <p class="prof">Prof. Me. Matheus Marques</p>
+    <p class="sub">> do zero ao terminal em 2 horas — jogando, não decorando_</p>
+    <p>O vírus <b>Kernel Panic</b> derrubou a rede. O mouse morreu. Só restou o terminal — e você. Aprenda os comandos que <b>todo profissional de tecnologia usa</b>, complete a trilha, encare os desafios sem resposta e feche com o <b>Quiz Final de 60 questões sorteadas</b> valendo ranking.</p>
+  </div>
+</div>
+
+<div class="grid">
+    <div class="card"><b>🗺️ 15 missões guiadas</b><br>teoria curta + passo a passo. 77 tarefas.</div>
+    <div class="card"><b>🔒 8 desafios raiz</b><br>sem resposta pronta. Só objetivo e dica vaga. 22 provas.</div>
+    <div class="card"><b>🏁 Quiz sorteado + ranking</b><br>60 questões, ordem única pra cada jogador. Anti-cola.</div>
+</div>
+
+<div class="grid" style="grid-template-columns:1fr 1fr">
+<div>
+<div class="card">
+  <h2>🎬 Roteiro da aula (2h)</h2>
+  <table>
+    <tr><th>Tempo</th><th>Momento</th><th>O que fazer</th></tr>
+    {% for r in c.roteiro_2h %}
+    <tr><td><code>{{ r.tempo }}</code></td><td><b>{{ r.titulo }}</b></td><td>{{ r.desc }}</td></tr>
+    {% endfor %}
+  </table>
+</div>
+<div class="card">
+  <h2>😎 Entrar no jogo</h2>
+  {% if erro %}<div class="alert">{{ erro }}</div>{% endif %}
+  <form method="post">
+    <label for="nome">Seu nickname de sobrevivente:</label>
+    <input type="text" id="nome" name="nome" placeholder="Ex: root_das_ruinas" maxlength="30" required>
+    <br><br>
+    <button class="btn" type="submit">▶ Entrar no abrigo</button>
+  </form>
+  <p style="color:var(--muted)">Sem senha, sem cadastro. Só nickname e coragem.</p>
+</div>
+</div>
+<div>
+<div class="card">
+  <h2>🏆 Top Quiz Final</h2>
+  {% if top %}
+  <table><tr><th>#</th><th>Sobrevivente</th><th>Pontos</th><th>%</th></tr>
+  {% for r in top %}
+  <tr><td>{% if loop.index==1 %}🥇{% elif loop.index==2 %}🥈{% elif loop.index==3 %}🥉{% else %}{{ loop.index }}º{% endif %}</td>
+  <td><b>{{ r.nome }}</b></td><td>{{ r.acertos }}/{{ r.total }}</td><td>{{ r.percentual }}%</td></tr>
+  {% endfor %}</table>
+  {% else %}<p>Ninguém pontuou ainda. O abrigo está vazio...</p>{% endif %}
+  {% if session.get('user') %}<p><a href="{{ url_for('ranking') }}">Ver ranking completo →</a></p>{% endif %}
+</div>
+</div>
+</div>
+
+<div class="card">
+  <h2>🧰 Arsenal da aula (comandos de verdade)</h2>
+  <div class="comandos-strip">
+  <code>pwd</code><code>ls -la</code><code>cd</code><code>tree</code><code>mkdir</code><code>touch</code><code>echo &gt;</code><code>&gt;&gt;</code><code>cat</code><code>head</code><code>tail</code><code>wc</code><code>sort</code><code>uniq</code><code>cp -r</code><code>mv</code><code>rm -r</code><code>chmod</code><code>sudo</code><code>nano</code><code>vim</code><code>alias</code><code>ln -s</code><code>less</code><code>file</code><code>ps aux</code><code>kill -9</code><code>top</code><code>find</code><code>grep</code><code>| pipe</code><code>&amp;</code><code>tar</code><code>df</code><code>du</code><code>free</code><code>id</code><code>who</code><code>systemctl</code><code>journalctl</code><code>ping</code><code>ip</code><code>ssh</code><code>scp</code><code>curl</code><code>wget</code><code>apt</code><code>dnf</code><code>chown</code><code>man</code><code>history</code>
+  </div>
+  <p style="color:var(--muted)">Tudo simulado em <b>Python</b> no servidor — pode errar à vontade, nada quebra de verdade.</p>
+</div>
+{% endblock %}

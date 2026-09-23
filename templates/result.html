@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>🏆 {{ modo_nome }}</h1>
+<div class="hero"><h2>{{ msg }}</h2>
+<p class="sub">{{ user }} — {{ acertos }}/{{ total }} ({{ percentual }}%) • {{ posicao }}º no ranking</p>
+<p><a class="btn" href="{{ url_for('ranking') }}">Ver ranking 🏆</a>
+<a class="btn pink" href="{{ url_rejogar }}">Jogar de novo ⚡</a>
+<a class="btn ghost" href="{{ url_for('mapa') }}">Voltar à trilha</a></p></div>
+<h2>📝 Revisão da partida</h2>
+{% for r in revisao %}
+<div class="card {% if r.acertou %}pop{% endif %}">
+<p>{% if r.acertou %}✅{% else %}❌{% endif %} <b>Q{{ r.n }}</b> <span class="badge">{{ r.tema }}</span> — {{ r.titulo }}</p>
+<ul>
+{% for op in r.opcoes %}
+<li {% if loop.index0==r.correta %}style="color:var(--lime);font-weight:bold"{% endif %}>{{ letters[loop.index0] }}) {{ op }}</li>
+{% endfor %}</ul>
+<p style="color:var(--muted)">💡 {{ r.explicacao }}</p>
+</div>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>🏆 Ranking — Quiz Final</h1>
+<p>Ordenado por % de acerto. Todo mundo aparece aqui — jogue de novo pra subir! Dados em <code>results.json</code> (sem banco).</p>
+<div class="card">
+  {% if ranking %}
+  <table><tr><th>#</th><th>Player</th><th>Pontos</th><th>%</th><th>Quando</th></tr>
+  {% for r in ranking %}
+  <tr {% if r.nome==user %}class="me"{% endif %}><td class="medal">{% if loop.index==1 %}🥇{% elif loop.index==2 %}🥈{% elif loop.index==3 %}🥉{% else %}{{ loop.index }}º{% endif %}</td>
+  <td><b>{{ r.nome }}</b>{% if r.nome==user %} (você!) {% endif %}</td><td>{{ r.acertos }}/{{ r.total }}</td><td>{{ r.percentual }}%</td><td>{{ r.data }}</td></tr>
+  {% endfor %}</table>
+  {% else %}<p>Ninguém pontuou ainda. Seja a primeira lenda! ⚡</p>{% endif %}
+  <p><a class="btn ghost" href="{{ url_for('mapa') }}">← Voltar à trilha</a>
+  <a class="btn" href="{{ url_for('quiz') }}">Fazer o Quiz 🏁</a></p>
+</div>
+{% endblock %}

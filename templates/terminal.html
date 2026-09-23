@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>💻 Terminal Livre</h1>
+<p>Sobrevivente: <b>{{ user }}</b> • Aqui vale tudo: treine, erre, explore. <code>help</code> lista comandos. <code>clear</code> limpa.</p>
+<div class="terminal">
+  <div class="term-head"><span class="dot" style="background:#a4161a"></span><span class="dot" style="background:#ffb703"></span><span class="dot" style="background:#39ff14"></span> &nbsp;sobrevivente@abrigo — bash</div>
+  <div class="term-body" id="tbody"></div>
+  <div class="term-input-row"><span id="prompt">🧟 sobrevivente@abrigo:$</span><input id="tinput" autocomplete="off" spellcheck="false" placeholder="tente: ls -la ..."></div>
+</div>
+<p><a class="btn ghost" href="{{ url_for('mapa') }}">← Voltar ao mapa</a></p>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='terminal.js') }}"></script>
+<script>initTerminal("tbody","tinput","prompt");document.getElementById("tinput").focus();</script>
+{% endblock %}

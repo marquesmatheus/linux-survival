@@ -1,0 +1,416 @@
+{
+  "titulo_curso": "LINUX SURVIVAL — Apocalipse Terminal",
+  "subtitulo": "Sobreviva 2 horas no terminal. Sem mouse. Sem piedade. Só você e o bash.",
+  "roteiro_2h": [
+    {"tempo": "00:00 – 00:12", "titulo": "ATO I — O Despertar", "desc": "pwd, whoami, ls, ls -la, help. Missões 1-2 + Desafio 1. Cobre o quiz: Básico."},
+    {"tempo": "00:12 – 00:30", "titulo": "ATO II — Ruínas e Navegação", "desc": "cd, absoluto/relativo, tree, cat, head, tail. Missões 3-4 + Desafio 2. Cobre o quiz: Navegação, leitura de arquivos."},
+    {"tempo": "00:30 – 00:55", "titulo": "ATO III — Suprimentos", "desc": "mkdir, touch, echo > e >>, cp (-r), mv, rm, rmdir. Missões 5-6-7 + Desafio 3. Cobre o quiz: Arquivos."},
+    {"tempo": "00:55 – 01:15", "titulo": "ATO IV — Permissões e Infectados", "desc": "chmod (700, +x, 755/644), sudo, ps, kill, find, grep, pipes. Missões 8-9 + Desafio 4. Cobre o quiz: Permissões, Processos, Busca, Pipes."},
+    {"tempo": "01:15 – 01:35", "titulo": "ATO V — Diário e Check-up", "desc": "Registros com >>, head/tail/wc/sort/uniq, df, free, uname, history, man. Missões 11-12 + Desafios 6-7. Cobre o quiz: Logs, Texto, Disco, Sistema, Histórico, Ajuda."},
+    {"tempo": "01:35 – 01:52", "titulo": "ATO VI — Ninja e Operador", "desc": "nano/vim, coringas, variáveis, alias, file, ln, less, id/who/adduser/passwd, du/top, systemctl/journalctl, ip/scp/wget, apt/dnf, chown, kill -9, &. Missões 13-14-15 + Desafio 8. Cobre o quiz: Shell, Usuários, Sistema, Rede, Pacotes."},
+    {"tempo": "01:52 – 02:00", "titulo": "ATO FINAL — Resgate + Quiz", "desc": "tar, ping, ssh, curl e o QUIZ FINAL de 60 questões sorteadas valendo ranking. Missão 10 + Desafio 5."}
+  ],
+  "missoes": [
+    {
+      "id": 1,
+      "ato": "ATO I — O Despertar",
+      "titulo": "Missão 1: Acorde, sobrevivente",
+      "historia": "Você acorda num abrigo escuro. Um terminal verde pisca. O sistema pede para você se identificar e descobrir onde está.",
+      "teoria": "pwd = mostra onde você está (print working directory). whoami = quem é você. ls = lista o que há ao redor. clear = limpa a tela. help = pede ajuda.",
+      "comandos": ["pwd", "whoami", "ls", "clear", "help"],
+      "tarefas": [
+        {"id": "1a", "texto": "Descubra onde você está com `pwd`", "valida": {"tipo": "comando", "contem": "pwd"}},
+        {"id": "1b", "texto": "Descubra quem você é com `whoami`", "valida": {"tipo": "comando", "contem": "whoami"}},
+        {"id": "1c", "texto": "Liste os arredores com `ls`", "valida": {"tipo": "comando", "contem": "ls"}},
+        {"id": "1d", "texto": "Peça ajuda ao sistema com `help`", "valida": {"tipo": "comando", "contem": "help"}}
+      ]
+    },
+    {
+      "id": 2,
+      "ato": "ATO I — O Despertar",
+      "titulo": "Missão 2: Primeiros suprimentos visíveis",
+      "historia": "Há uma mochila no chão. Liste com detalhes para ver permissões e arquivos escondidos dos infectados.",
+      "teoria": "`ls -l` mostra detalhes (permissões, dono, tamanho). A 1ª letra diz o TIPO: `d` = diretório, `-` = arquivo, `l` = atalho. `ls -a` mostra arquivos ocultos (que começam com ponto). Combine: `ls -la`. Profissionais usam `ls -lh` (tamanhos legíveis).",
+      "comandos": ["ls -l", "ls -a", "ls -la", "ls -lh"],
+      "tarefas": [
+        {"id": "2a", "texto": "Liste com detalhes: `ls -l`", "valida": {"tipo": "comando", "contem": "ls -l"}},
+        {"id": "2b", "texto": "Revele arquivos escondidos: `ls -a`", "valida": {"tipo": "comando", "contem": "ls -a"}},
+        {"id": "2c", "texto": "Combine tudo: `ls -la`", "valida": {"tipo": "comando", "contem": "ls -la"}},
+        {"id": "2d", "texto": "Tamanhos legíveis: `ls -lh`", "valida": {"tipo": "comando", "contem": "ls -lh"}}
+      ]
+    },
+    {
+      "id": 3,
+      "ato": "ATO II — Ruínas e Navegação",
+      "titulo": "Missão 3: Entre nas ruínas",
+      "historia": "O mapa aponta para /cidade/hospital. Navegue até lá. Cuidado: `..` volta um nível, `/` é a raiz, `~` é sua casa.",
+      "teoria": "`cd pasta` entra. `cd ..` volta. `cd /` vai à raiz. `cd ~` volta pra casa. Caminho absoluto começa com `/`. Relativo não. TAB completa nomes (use!).",
+      "comandos": ["cd cidade", "cd ..", "cd /", "cd ~", "pwd"],
+      "tarefas": [
+        {"id": "3a", "texto": "Entre na cidade: `cd cidade`", "valida": {"tipo": "comando", "contem": "cd cidade"}},
+        {"id": "3b", "texto": "Entre no hospital: `cd hospital`", "valida": {"tipo": "dir_atual", "valor": "/cidade/hospital"}},
+        {"id": "3c", "texto": "Volte um nível: `cd ..` e confirme com `pwd`", "valida": {"tipo": "comando", "contem": "pwd"}},
+        {"id": "3d", "texto": "Vá até a raiz do mundo com `cd /`", "valida": {"tipo": "comando", "contem": "cd /"}},
+        {"id": "3e", "texto": "Veja a árvore dos escombros: `tree`", "valida": {"tipo": "comando", "contem": "tree"}}
+      ]
+    },
+    {
+      "id": 4,
+      "ato": "ATO II — Ruínas e Navegação",
+      "titulo": "Missão 4: Leia o mapa",
+      "historia": "No hospital há um arquivo mapa.txt. Leia-o para achar o abrigo seguro. Arquivos .txt guardam mensagens de outros sobreviventes.",
+      "teoria": "`cat arquivo` mostra o conteúdo. `head` mostra o começo, `tail` o fim. `less` pagina (aqui simplificado). Profissional: `cat -n` numera linhas.",
+      "comandos": ["ls", "cat mapa.txt", "head mapa.txt", "tail mapa.txt"],
+      "tarefas": [
+        {"id": "4a", "texto": "Liste o hospital e leia o mapa: `cat mapa.txt`", "valida": {"tipo": "comando", "contem": "cat"}},
+        {"id": "4b", "texto": "Veja o começo dos remédios: `head remedios.txt`", "valida": {"tipo": "comando", "contem": "head"}},
+        {"id": "4c", "texto": "Veja o fim dos remédios: `tail remedios.txt`", "valida": {"tipo": "comando", "contem": "tail"}}
+      ]
+    },
+    {
+      "id": 5,
+      "ato": "ATO III — Suprimentos",
+      "titulo": "Missão 5: Construa o abrigo",
+      "historia": "Você achou uma clareira. Construa um abrigo: crie pastas e arquivos de suprimento antes que anoiteça.",
+      "teoria": "`mkdir abrigo` cria pasta. `mkdir -p a/b/c` cria aninhadas. `touch comida.txt` cria arquivo vazio. `echo 'texto' > arq` escreve (apaga antes). `>>` adiciona sem apagar. MUITO usado em deploy e logs.",
+      "comandos": ["mkdir abrigo", "touch suprimentos.txt", "echo 'agua' > suprimentos.txt", "cat suprimentos.txt"],
+      "tarefas": [
+        {"id": "5a", "texto": "Crie a pasta do abrigo: `mkdir abrigo`", "valida": {"tipo": "dir_existe", "valor": "abrigo"}},
+        {"id": "5b", "texto": "Crie o inventário: `touch suprimentos.txt`", "valida": {"tipo": "arq_existe", "valor": "suprimentos.txt"}},
+        {"id": "5c", "texto": "Registre água: `echo água > suprimentos.txt` e confira com `cat suprimentos.txt`", "valida": {"tipo": "arq_contem", "valor": "suprimentos.txt", "contem": "agua"}},
+        {"id": "5d", "texto": "Adicione comida SEM apagar a água: `echo comida >> suprimentos.txt`", "valida": {"tipo": "comando", "contem": ">>"}}
+      ]
+    },
+    {
+      "id": 6,
+      "ato": "ATO III — Suprimentos",
+      "titulo": "Missão 6: Organize a mochila",
+      "historia": "Sua mochila está uma bagunça. Copie, mova e renomeie suprimentos como um verdadeiro sysadmin.",
+      "teoria": "`cp origem destino` copia. `mv origem destino` move/renomeia. `rm arquivo` apaga. `rm -r pasta` apaga pasta. CUIDADO: rm não tem lixeira! Profissionais usam `cp -r` para pastas e conferem com `ls` antes do rm.",
+      "comandos": ["cp suprimentos.txt copia.txt", "mv copia.txt abrigo/", "ls abrigo", "rm copia.txt"],
+      "tarefas": [
+        {"id": "6a", "texto": "Copie o inventário: `cp suprimentos.txt reserva.txt`", "valida": {"tipo": "arq_existe", "valor": "reserva.txt"}},
+        {"id": "6b", "texto": "Mova a reserva para o abrigo: `mv reserva.txt abrigo`", "valida": {"tipo": "arq_existe", "valor": "abrigo/reserva.txt"}},
+        {"id": "6c", "texto": "Renomeie dentro do abrigo: `mv abrigo/reserva.txt abrigo/kit.txt`", "valida": {"tipo": "arq_existe", "valor": "abrigo/kit.txt"}},
+        {"id": "6d", "texto": "Copie a PASTA inteira: `cp -r abrigo backup-abrigo` (o -r entra nas subpastas)", "valida": {"tipo": "dir_existe", "valor": "backup-abrigo"}}
+      ]
+    },
+    {
+      "id": 7,
+      "ato": "ATO III — Suprimentos",
+      "titulo": "Missão 7: Queime os rastros",
+      "historia": "Os infectados farejam arquivos inúteis. Apague o que não serve. Aprenda a remover com segurança.",
+      "teoria": "`rm lixo.txt` apaga arquivo. `rmdir pasta_vazia` apaga pasta vazia. `rm -r pasta` apaga tudo dentro. `rm -rf` força (PERIGOSO: `rm -rf /` apaga o sistema!). Nunca rode rm -rf sem pensar.",
+      "comandos": ["touch lixo.txt", "rm lixo.txt", "mkdir temp", "rmdir temp"],
+      "tarefas": [
+        {"id": "7a", "texto": "Crie e apague um arquivo isca: `touch isca.txt` depois `rm isca.txt`", "valida": {"tipo": "comando_seq", "contem": ["touch isca.txt", "rm isca.txt"]}},
+        {"id": "7b", "texto": "Crie a pasta `temp` vazia e remova com `rmdir temp`", "valida": {"tipo": "comando_seq", "contem": ["mkdir temp", "rmdir temp"]}}
+      ]
+    },
+    {
+      "id": 8,
+      "ato": "ATO IV — Permissões e Infectados",
+      "titulo": "Missão 8: Tranque o abrigo",
+      "historia": "Saqueadores tentam roubar seu abrigo. Trave as permissões: só você lê e escreve o diário.",
+      "teoria": "`ls -l` mostra `-rwxr-xr--`. São 3 grupos: dono/grupo/outros, com r (ler=4), w (escrever=2), x (executar=1). `chmod 700 diario.txt` = só dono tem tudo. `chmod +x script.sh` torna executável. Padrões que você vai ver em todo servidor: pastas e scripts `755`, arquivos web `644`. `sudo` = poder de administrador (root).",
+      "comandos": ["ls -l", "chmod 700 diario.txt", "chmod +x resgate.sh", "sudo apt update"],
+      "tarefas": [
+        {"id": "8a", "texto": "Liste permissões: `ls -l`", "valida": {"tipo": "comando", "contem": "ls -l"}},
+        {"id": "8b", "texto": "Tranque o diário: `chmod 700 diario.txt`", "valida": {"tipo": "comando", "contem": "chmod"}},
+        {"id": "8c", "texto": "Tente o poder máximo: `sudo whoami`", "valida": {"tipo": "comando", "contem": "sudo"}},
+        {"id": "8d", "texto": "Torne o resgate executável: `chmod +x resgate.sh`", "valida": {"tipo": "comando", "contem": "+x"}}
+      ]
+    },
+    {
+      "id": 9,
+      "ato": "ATO IV — Permissões e Infectados",
+      "titulo": "Missão 9: Cace infectados (processos e busca)",
+      "historia": "Infectados = processos zumbis consumindo CPU. Liste, filtre e elimine. Depois encontre sobreviventes escondidos com find e grep.",
+      "teoria": "`ps aux` lista processos. `kill PID` mata. `top` monitora (aqui simulado). `find . -name '*.txt'` acha arquivos. `grep 'agua' arquivo` filtra texto. `|` (pipe) encadeia: `ps aux | grep zumbi`. Essencial para logs, deploys e DevOps.",
+      "comandos": ["ps aux", "ps aux | grep zumbi", "kill 666", "find . -name '*.txt'", "grep agua suprimentos.txt"],
+      "tarefas": [
+        {"id": "9a", "texto": "Liste processos: `ps aux`", "valida": {"tipo": "comando", "contem": "ps"}},
+        {"id": "9b", "texto": "Filtre zumbis: `ps aux | grep zumbi`", "valida": {"tipo": "comando", "contem": "grep"}},
+        {"id": "9c", "texto": "Elimine o infectado: `kill 666`", "valida": {"tipo": "comando", "contem": "kill"}},
+        {"id": "9d", "texto": "Ache suprimentos: `find . -name '*.txt'`", "valida": {"tipo": "comando", "contem": "find"}},
+        {"id": "9e", "texto": "Encadeie dois comandos com o pipe `|` (ex: `ps aux | grep zumbi`)", "valida": {"tipo": "comando", "contem": "|"}}
+      ]
+    },
+    {
+      "id": 10,
+      "ato": "ATO FINAL — Resgate",
+      "titulo": "Missão 10: Sinal de resgate",
+      "historia": "O helicóptero só pousa se você compactar os mapas, checar a rede e registrar seu histórico. Última missão antes do quiz!",
+      "teoria": "`tar -czf backup.tar.gz pasta` compacta. `du -sh` e `df -h` veem espaço. `ping 8.8.8.8` testa rede. `ssh user@server` acessa remoto. `curl url` baixa. `history` mostra comandos. `uname -a` e `ifconfig` diagnosticam. Tudo cai em entrevista de estágio!",
+      "comandos": ["tar -czf backup.tar.gz abrigo", "ping resgate", "ssh resgate@base", "history", "uname -a"],
+      "tarefas": [
+        {"id": "10a", "texto": "Compacte o abrigo: `tar -czf backup.tar.gz abrigo`", "valida": {"tipo": "comando", "contem": "tar"}},
+        {"id": "10b", "texto": "Teste o sinal: `ping resgate`", "valida": {"tipo": "comando", "contem": "ping"}},
+        {"id": "10c", "texto": "Mostre seu histórico: `history`", "valida": {"tipo": "comando", "contem": "history"}},
+        {"id": "10d", "texto": "Conecte-se à base: `ssh resgate@base`", "valida": {"tipo": "comando", "contem": "ssh"}},
+        {"id": "10e", "texto": "Identifique o sistema: `uname -a`", "valida": {"tipo": "comando", "contem": "uname"}}
+      ]
+    },
+    {
+      "id": 11,
+      "ato": "ATO V — Diário e Check-up",
+      "titulo": "Missão 11: Diário de bordo",
+      "historia": "A base pede registros de tudo. Aprenda a anotar sem apagar, ler logs e contar suprimentos como um analista.",
+      "teoria": "`echo linha >> diario.txt` ANEXA sem apagar (>> soma, > zera). `head -n 5` mostra o começo, `tail -n 5` o fim. `wc -l` conta linhas. `sort` ordena e `uniq` tira repetidas (`sort arq | uniq`). Quem trabalha com log vive nesses comandos.",
+      "comandos": ["echo patrulha ok >> diario.txt", "cat diario.txt", "head -n 5 diario.txt", "tail -n 5 diario.txt", "wc -l diario.txt", "sort remedios.txt | uniq"],
+      "tarefas": [
+        {"id": "11a", "texto": "Anote sem apagar: `echo patrulha ok >> diario.txt`", "valida": {"tipo": "comando", "contem": ">>"}},
+        {"id": "11b", "texto": "Confira o diário completo: `cat diario.txt`", "valida": {"tipo": "comando", "contem": "cat"}},
+        {"id": "11c", "texto": "Leia o começo: `head -n 5 diario.txt`", "valida": {"tipo": "comando", "contem": "head"}},
+        {"id": "11d", "texto": "Leia o fim: `tail -n 5 diario.txt`", "valida": {"tipo": "comando", "contem": "tail"}},
+        {"id": "11e", "texto": "Conte as linhas: `wc -l diario.txt`", "valida": {"tipo": "comando", "contem": "wc"}},
+        {"id": "11f", "texto": "Ordene sem repetir: `sort diario.txt | uniq`", "valida": {"tipo": "comando", "contem": "uniq"}}
+      ]
+    },
+    {
+      "id": 12,
+      "ato": "ATO V — Diário e Check-up",
+      "titulo": "Missão 12: Check-up do abrigo",
+      "historia": "Antes do resgate, faça a vistoria: disco, memória, sistema, histórico e manual. Técnico bom diagnostica antes de chutar.",
+      "teoria": "`df -h` = disco livre. `free -h` = RAM livre. `uname -a` = sistema. `history` = comandos passados. `man comando` = manual completo. Com esses 5 você encara qualquer entrevista de suporte.",
+      "comandos": ["df -h", "free -h", "uname -a", "history", "man ls"],
+      "tarefas": [
+        {"id": "12a", "texto": "Cheque o disco: `df -h`", "valida": {"tipo": "comando", "contem": "df"}},
+        {"id": "12b", "texto": "Cheque a memória: `free -h`", "valida": {"tipo": "comando", "contem": "free"}},
+        {"id": "12c", "texto": "Identifique o sistema: `uname -a`", "valida": {"tipo": "comando", "contem": "uname"}},
+        {"id": "12d", "texto": "Reveja seus passos: `history`", "valida": {"tipo": "comando", "contem": "history"}},
+        {"id": "12e", "texto": "Abra o manual: `man ls`", "valida": {"tipo": "comando", "contem": "man"}}
+      ]
+    },
+    {
+      "id": 13,
+      "ato": "ATO VI — Ninja e Operador",
+      "titulo": "Missão 13: Shell ninja",
+      "historia": "Velocidade salva vidas. Aprenda os truques que separam quem digita de quem DOMINA o terminal.",
+      "teoria": "TAB completa nomes sozinha (aperte 2x para ver opções). `*` é coringa (`ls *.txt`). `~` é sua casa. `$NOME` lê variáveis (`echo $HOME`). `alias apelido='comando'` cria atalhos (grave no ~/.bashrc). `file arq` revela o tipo real. `ln -s origem destino` cria atalho. `less arq` lê com calma (q sai). `cd ../..` sobe dois níveis. Editores: `nano` (manso) e `vim` (i edita, ESC sai, `:q!` descarta).",
+      "comandos": ["nano diario.txt", "vim diario.txt", ":q!", "ls *.txt", "echo $HOME", "alias ll='ls -la'", "cd ~", "file diario.txt", "ln -s diario.txt atalho-diario", "less diario.txt", "cd ../.."],
+      "tarefas": [
+        {"id": "13a", "texto": "Abra o editor manso: `nano diario.txt`", "valida": {"tipo": "comando", "contem": "nano"}},
+        {"id": "13b", "texto": "Saia do vim sem salvar: `:q!`", "valida": {"tipo": "comando", "contem": ":q!"}},
+        {"id": "13c", "texto": "Liste só os .txt com coringa: `ls *.txt`", "valida": {"tipo": "comando", "contem": "*.txt"}},
+        {"id": "13d", "texto": "Leia uma variável: `echo $HOME`", "valida": {"tipo": "comando", "contem": "$HOME"}},
+        {"id": "13e", "texto": "Crie um atalho: `alias ll='ls -la'`", "valida": {"tipo": "comando", "contem": "alias"}},
+        {"id": "13f", "texto": "Volte para casa: `cd ~`", "valida": {"tipo": "comando", "contem": "cd ~"}},
+        {"id": "13g", "texto": "Descubra o tipo real: `file diario.txt`", "valida": {"tipo": "comando", "contem": "file"}},
+        {"id": "13h", "texto": "Crie um atalho físico: `ln -s diario.txt atalho-diario`", "valida": {"tipo": "arq_existe", "valor": "atalho-diario"}},
+        {"id": "13i", "texto": "Leia com calma: `less diario.txt`", "valida": {"tipo": "comando", "contem": "less"}},
+        {"id": "13j", "texto": "Suba dois níveis de uma vez: `cd ../..`", "valida": {"tipo": "comando", "contem": "../.."}}
+      ]
+    },
+    {
+      "id": 14,
+      "ato": "ATO VI — Ninja e Operador",
+      "titulo": "Missão 14: Médico e mecânico",
+      "historia": "Gente e máquina: gerencie usuários e faça check-up completo do sistema como um admin de verdade.",
+      "teoria": "`id` mostra seu uid e grupos; `who` mostra quem está logado. `sudo adduser ana` cria gente; `passwd` troca senha (nunca aparece na tela). `du -sh *` acha quem come disco. `top` monitora ao vivo (q sai). `systemctl status nginx` vê serviços. `journalctl` lê o diário do sistema; arquivos ficam em `/var/log`.",
+      "comandos": ["id", "who", "sudo adduser ana", "passwd", "du -sh *", "top", "systemctl status nginx", "journalctl", "cat /var/log/syslog"],
+      "tarefas": [
+        {"id": "14a", "texto": "Mostre sua identidade: `id`", "valida": {"tipo": "comando", "contem": "id"}},
+        {"id": "14b", "texto": "Veja quem está dentro: `who`", "valida": {"tipo": "comando", "contem": "who"}},
+        {"id": "14c", "texto": "Cadastre reforço: `sudo adduser ana`", "valida": {"tipo": "comando", "contem": "adduser"}},
+        {"id": "14d", "texto": "Troque sua senha: `passwd`", "valida": {"tipo": "comando", "contem": "passwd"}},
+        {"id": "14e", "texto": "Ache os comilões de disco: `du -sh *`", "valida": {"tipo": "comando", "contem": "du -sh"}},
+        {"id": "14f", "texto": "Monitore ao vivo: `top`", "valida": {"tipo": "comando", "contem": "top"}},
+        {"id": "14g", "texto": "Cheque o serviço: `systemctl status nginx`", "valida": {"tipo": "comando", "contem": "systemctl"}},
+        {"id": "14h", "texto": "Leia o diário do sistema: `journalctl`", "valida": {"tipo": "comando", "contem": "journalctl"}}
+      ]
+    },
+    {
+      "id": 15,
+      "ato": "ATO VI — Ninja e Operador",
+      "titulo": "Missão 15: Rede e arsenal",
+      "historia": "Hora de falar com o mundo lá fora e dominar pacotes, donos e processos teimosos. Quase lá!",
+      "teoria": "`ip a` mostra seu IP (substituiu o ifconfig). `scp arq ana@srv:/dest` copia via SSH; `wget url` baixa arquivos. `sudo chown ana arq` muda o dono (só root). `kill -9 PID` é força total. `comando &` roda em 2º plano. Pacotes: `apt update` (lista) + `apt upgrade` (instala) no Ubuntu; `dnf` no Fedora.",
+      "comandos": ["ip a", "scp diario.txt ana@base:/backup", "wget https://base/pacote", "sudo chown ana diario.txt", "kill -9 666", "ping resgate &", "sudo apt update", "dnf --version"],
+      "tarefas": [
+        {"id": "15a", "texto": "Descubra seu IP: `ip a`", "valida": {"tipo": "comando", "contem": "ip"}},
+        {"id": "15b", "texto": "Copie via SSH: `scp diario.txt ana@base:/backup`", "valida": {"tipo": "comando", "contem": "scp"}},
+        {"id": "15c", "texto": "Baixe suprimento: `wget https://base/pacote`", "valida": {"tipo": "comando", "contem": "wget"}},
+        {"id": "15d", "texto": "Mude o dono: `sudo chown ana diario.txt`", "valida": {"tipo": "comando", "contem": "chown"}},
+        {"id": "15e", "texto": "Força total no teimoso: `kill -9 666`", "valida": {"tipo": "comando", "contem": "kill -9"}},
+        {"id": "15f", "texto": "Rode em 2º plano: `ping resgate &`", "valida": {"tipo": "comando", "contem": "&"}},
+        {"id": "15g", "texto": "Atualize o catálogo: `sudo apt update`", "valida": {"tipo": "comando", "contem": "apt update"}},
+        {"id": "15h", "texto": "Fale o idioma do Fedora: `dnf --version`", "valida": {"tipo": "comando", "contem": "dnf"}}
+      ]
+    }
+  ],
+  "quiz": [
+    {"id": 1, "tema": "Básico", "titulo": "Qual comando mostra em qual pasta você está?", "opcoes": ["ls (lista arquivos da pasta)", "cd (troca de pasta)", "pwd (mostra a pasta atual)", "whoami (mostra o usuário)"], "correta": 2, "explicacao": "pwd = print working directory. Mostra o caminho completo atual. Essencial antes de criar/apagar qualquer coisa."},
+    {"id": 2, "tema": "Básico", "titulo": "Qual comando lista arquivos, incluindo os ocultos?", "opcoes": ["ls -l (detalhes, sem ocultos)", "ls -a (inclui os ocultos)", "ls -h (tamanho legível)", "ls -r (ordem invertida)"], "correta": 1, "explicacao": "Arquivos que começam com ponto são ocultos. `ls -a` revela todos. `ls -la` junta detalhes + ocultos."},
+    {"id": 3, "tema": "Navegação", "titulo": "Você está em /cidade/hospital. O que `cd ..` faz?", "opcoes": ["Vai para a raiz /", "Apaga a pasta hospital", "Vai para a sua home", "Sobe para /cidade (pai)"], "correta": 3, "explicacao": "`..` = pasta pai. De /cidade/hospital volta para /cidade. `.` = pasta atual."},
+    {"id": 4, "tema": "Navegação", "titulo": "Qual a diferença entre caminho absoluto e relativo?", "opcoes": ["Relativo é mais rápido porque usa atalho", "Absoluto só funciona com sudo root", "São a mesma coisa, juro", "Absoluto começa em /; relativo, aqui"], "correta": 3, "explicacao": "/cidade/hospital é absoluto. cidade/hospital é relativo (depende do pwd). Em scripts, prefira absoluto."},
+    {"id": 5, "tema": "Arquivos", "titulo": "Como criar a pasta `abrigo` e o arquivo `lista.txt`?", "opcoes": ["make abrigo + new lista.txt", "mkdir abrigo + touch lista.txt", "create abrigo + file lista.txt", "cd abrigo + ls lista.txt"], "correta": 1, "explicacao": "mkdir = make directory. touch cria arquivo vazio (ou atualiza data). Dupla mais usada do Linux."},
+    {"id": 6, "tema": "Arquivos", "titulo": "Qual a diferença entre `>` e `>>` com echo?", "opcoes": ["Dá no mesmo, tanto faz", "`>>` apaga tudo; `>` cola", "`>` troca o texto; `>>` soma", "Os dois criam pastas novas"], "correta": 2, "explicacao": "`echo ola > f.txt` zera e escreve. `echo ola >> f.txt` preserva e anexa. Erro clássico que apaga logs!"},
+    {"id": 7, "tema": "Arquivos", "titulo": "Como ver o conteúdo de `mapa.txt`?", "opcoes": ["cat mapa.txt (mostra o texto)", "open mapa.txt (abre janela)", "show mapa.txt (projeta)", "read mapa.txt (lê em voz alta)"], "correta": 0, "explicacao": "cat concatena e mostra. Para arquivos grandes use less, head (início) ou tail (fim, ótimo para logs)."},
+    {"id": 8, "tema": "Arquivos", "titulo": "Como copiar `a.txt` para a pasta `abrigo/` e depois renomear?", "opcoes": ["copy a.txt + rename b.txt", "clone a.txt + edit b.txt", "arrasta a.txt p/ a pasta abrigo", "cp a.txt abrigo/ + mv p/ b.txt"], "correta": 3, "explicacao": "cp copia, mv move/renomeia. `mv` entre pastas move; no mesmo lugar renomeia."},
+    {"id": 9, "tema": "Arquivos", "titulo": "Qual comando apaga uma pasta cheia? Qual o perigo?", "opcoes": ["rmdir pasta (só vale vazia)", "rm -r pasta (tudo, sem lixeira)", "delete pasta (pede licença antes)", "erase * (só apaga texto)"], "correta": 1, "explicacao": "`rm -r` remove recursivo. Não há lixeira! `rm -rf /` destrói o sistema. Confira com `ls` antes."},
+    {"id": 10, "tema": "Permissões", "titulo": "Em `-rwxr-xr--`, o que significam r, w, x e os 3 grupos?", "opcoes": ["É o tamanho exato do arquivo", "É a data de criação dele", "r/w/x p/ dono, grupo, outros", "É o nome do dono atual"], "correta": 2, "explicacao": "r=4 leitura, w=2 escrita, x=1 execução. Ex: 755 = rwxr-xr-x. `chmod 700` = só o dono acessa."},
+    {"id": 11, "tema": "Permissões", "titulo": "Para que serve o `sudo`?", "opcoes": ["Acelera a internet (mito!)", "Executa como admin (root)", "Instala jogos grátis (opa!)", "Remove vírus sozinho (sonho!)"], "correta": 1, "explicacao": "sudo = superuser do. Instalar pacotes, editar configs e reiniciar serviços exigem sudo. Com grandes poderes..."},
+    {"id": 12, "tema": "Processos", "titulo": "Como listar processos e matar o PID 666?", "opcoes": ["ps aux + kill 666", "list + delete 666", "jobs + stop 666", "show + end 666"], "correta": 0, "explicacao": "`ps aux` lista tudo. `kill PID` pede para encerrar; `kill -9` força. `top` monitora ao vivo."},
+    {"id": 13, "tema": "Busca", "titulo": "Como achar todos os .txt e filtrar linhas com 'agua'?", "opcoes": ["search *.txt + filter agua", "locate txt + select agua", "where txt + has agua", "find . -name + grep agua"], "correta": 3, "explicacao": "find busca por nome/tipo. grep filtra texto (com regex). Pipe `|` junta: `ps aux | grep zumbi`."},
+    {"id": 14, "tema": "Pipes", "titulo": "O que o pipe `|` faz em `ps aux | grep zumbi`?", "opcoes": ["Liga a saída de um no outro", "Apaga o comando anterior", "Roda os dois em paralelo", "Cria um arquivo grep"], "correta": 0, "explicacao": "Pipe encadeia comandos. Extremamente usado: logs, deploys, Docker, análise de dados."},
+    {"id": 15, "tema": "Compactação", "titulo": "Como compactar a pasta `abrigo` em backup.tar.gz?", "opcoes": ["tar -czf backup.tar.gz abrigo", "zip abrigo (falta o resto)", "rar abrigo backup (Windows)", "compact abrigo (não existe)"], "correta": 0, "explicacao": "tar junta; -c cria, -z gzip, -f arquivo. Para extrair: `tar -xzf backup.tar.gz`. Padrão em backups e deploys."},
+    {"id": 16, "tema": "Rede", "titulo": "Para que servem `ping`, `ssh` e `curl`?", "opcoes": ["ping varre vírus da rede (será?)", "ssh e curl editam texto remoto", "ping testa, ssh acessa, curl baixa", "são minigames escondidos do bash"], "correta": 2, "explicacao": "ping = 'você está vivo?'. ssh = terminal remoto seguro. curl = cliente HTTP (testa APIs, baixa arquivos). Cai em toda entrevista."},
+    {"id": 17, "tema": "Pacotes", "titulo": "No Ubuntu, como atualizar a lista de pacotes e instalar o htop?", "opcoes": ["sudo apt update + install htop", "baixa o htop.exe do site", "abre a loja e clica em htop", "pip install htop (resolve)"], "correta": 0, "explicacao": "apt gerencia pacotes Debian/Ubuntu. update atualiza índice; upgrade atualiza sistema; install instala. RHEL usa dnf/yum."},
+    {"id": 18, "tema": "Histórico", "titulo": "Como ver os últimos comandos e repetir um deles?", "opcoes": ["abre o log e dá replay", "back + redo (atalhos)", "journal + again (diário)", "history + !n ou seta ↑"], "correta": 3, "explicacao": "history lista. `!42` repete o nº 42. `!!` repete o último (ótimo com sudo: `sudo !!`). TAB completa, Ctrl+R busca."},
+    {"id": 19, "tema": "Entrevista", "titulo": "Qual sequência diagnostica 'site fora do ar' num servidor?", "opcoes": ["Reinicia na hora, sem olhar nada", "df + free + top + logs + systemctl", "Apaga /var/log p/ liberar espaço", "Troca a senha do Wi-Fi (resolve?)"], "correta": 1, "explicacao": "Profissional checa disco, memória, CPU, logs e serviço antes de reiniciar. `df -h`, `free -h`, `top`, `journalctl`, `systemctl`."},
+    {"id": 20, "tema": "Segurança", "titulo": "Qual prática é CORRETA no terminal de produção?", "opcoes": ["pwd + ls antes do rm; sudo com moderação", "rm -rf / limpa tudo rapidinho e de graça", "root sempre: sudo em cada linha", "cola e roda script de desconhecido"], "correta": 0, "explicacao": "Terminal não tem Ctrl+Z. Confira caminho, faça backup, entenda o comando, princípio do menor privilégio."},
+    {"id": 21, "tema": "Editores", "titulo": "Como editar um arquivo texto direto no terminal, sem interface gráfica?", "opcoes": ["word diario.txt (Office)", "bloco-de-notas diario.txt (Win)", "nano diario.txt (editor simples)", "paint diario.txt (desenha)"], "correta": 2, "explicacao": "nano é o editor mais amigável do terminal: abre, edita, Ctrl+O salva, Ctrl+X sai. vim é mais poderoso e mais difícil."},
+    {"id": 22, "tema": "Editores", "titulo": "No vim, você editou tudo errado e quer sair SEM salvar. Qual comando?", "opcoes": [":q! (sai sem salvar)", ":salvar-e-sair (lógico?)", "exit --force (cai fora)", "fecha a janela do PC"], "correta": 0, "explicacao": ":w salva, :q sai, :wq salva e sai, :q! sai sem salvar. Todo dev já precisou do :q! um dia."},
+    {"id": 23, "tema": "Logs", "titulo": "O log app.log tem 50 mil linhas e você quer ver só as últimas 20. Qual comando?", "opcoes": ["head -n 20 app.log", "tail -n 20 app.log", "cat 20 app.log", "last-lines app.log 20"], "correta": 1, "explicacao": "tail mostra o FIM do arquivo (perfeito para logs que crescem). head mostra o COMEÇO. -n define quantas linhas. tail -f acompanha ao vivo."},
+    {"id": 24, "tema": "Texto", "titulo": "Como contar quantas linhas tem o arquivo alunos.txt?", "opcoes": ["count alunos.txt", "cat --count alunos.txt", "ls -l alunos.txt", "wc -l alunos.txt"], "correta": 3, "explicacao": "wc = word count: -l conta linhas, -w palavras, -c bytes. ls -l mostra tamanho do arquivo, não linhas."},
+    {"id": 25, "tema": "Texto", "titulo": "Como ordenar nomes.txt e remover linhas duplicadas de uma vez?", "opcoes": ["sort nomes.txt | uniq", "order nomes.txt --unique", "sort --no-repeat nomes.txt", "uniq nomes.txt --sort"], "correta": 0, "explicacao": "sort ordena, uniq remove repetidas ADJACENTES (por isso o pipe). Clássico de análise de logs e listas."},
+    {"id": 26, "tema": "Shell", "titulo": "Na pasta há 200 arquivos e você quer listar só os .txt. Qual comando?", "opcoes": ["ls .txt (quase lá...)", "ls --only txt (não existe)", "ls *.txt (* = coringa)", "find txt (falta o quê?)"], "correta": 2, "explicacao": "* casa com qualquer coisa: *.txt, foto-*.jpg, backup-*.tar.gz. ? casa com UM caractere. Coringas economizam horas."},
+    {"id": 27, "tema": "Shell", "titulo": "O que significa o atalho `~` no terminal?", "opcoes": ["A pasta raiz /", "Sua home (/home/você)", "A pasta anterior", "Arquivo temporário"], "correta": 1, "explicacao": "~ é sua casa. cd ~ volta pra ela de qualquer lugar. ~/.ssh guarda suas chaves. Já - (hífen) volta à pasta anterior."},
+    {"id": 28, "tema": "Shell", "titulo": "Como ver o valor da variável de ambiente HOME?", "opcoes": ["show HOME (exibe na tela)", "echo $HOME ($ lê a var)", "print HOME (imprime onde?)", "cat HOME (abre arquivo?)"], "correta": 1, "explicacao": "$NOME lê variáveis: $HOME, $USER, $PATH. echo $PATH mostra onde o shell procura comandos. Essencial em deploys e Docker."},
+    {"id": 29, "tema": "Shell", "titulo": "Para que serve a tecla TAB no terminal?", "opcoes": ["Fecha o terminal (cuidado!)", "Apaga o comando atual", "Tira print da tela (não)", "Completa nomes e comandos"], "correta": 3, "explicacao": "TAB completa e evita erros de digitação. Aperte 2x para ver opções. Profissional digita metade e deixa o TAB terminar."},
+    {"id": 30, "tema": "Shell", "titulo": "Você digita `sudo apt update` toda hora. Como criar o atalho `atualizar`?", "opcoes": ["atalho atualizar=sudo apt update", "alias atualizar='sudo apt update'", "shortcut update para atualizar", "bind atualizar com update"], "correta": 1, "explicacao": "alias cria apelidos para comandos longos. Coloque no ~/.bashrc para valer sempre. alias ll='ls -la' é o mais famoso."},
+    {"id": 31, "tema": "Ajuda", "titulo": "Onde está o manual COMPLETO do comando ls, com todas as flags?", "opcoes": ["google ls (no terminal?)", "ls --google (existe?)", "man ls (manual oficial)", "help-me ls (socorro!)"], "correta": 2, "explicacao": "man = manual: documentação oficial offline de quase todo comando. q sai, / busca. ls --help é o resumo rápido."},
+    {"id": 32, "tema": "Navegação", "titulo": "Você está em /a/b/c e quer voltar DUAS pastas de uma vez. Qual comando?", "opcoes": ["cd .. .. (com espaço)", "back 2 (duas casas)", "cd ../.. (sobe dois)", "cd // (barra dupla)"], "correta": 2, "explicacao": ".. sobe um nível; ../.. sobe dois. Dá para encadear: ../../fotos. E cd - volta para a pasta onde você estava antes."},
+    {"id": 33, "tema": "Arquivos", "titulo": "O arquivo se chama foto.jpg mas você desconfia. Como descobrir o tipo REAL?", "opcoes": ["cat foto.jpg (mostra tudo)", "ls foto.jpg (lista o nome)", "open foto.jpg (abre e vê)", "file foto.jpg (vê o conteúdo)"], "correta": 3, "explicacao": "file inspeciona o conteúdo e diz a verdade (JPEG, script, texto...). Extensão no Linux é só dica — o que vale é o conteúdo."},
+    {"id": 34, "tema": "Usuários", "titulo": "Como ver seu usuário, seu ID e seus grupos?", "opcoes": ["who-are-you (quem?)", "id (uid, gid e grupos)", "me groups (eu e elas)", "user --all (tudo?)"], "correta": 1, "explicacao": "id mostra uid (seu número), gid e grupos. groups lista só grupos. whoami mostra só o nome. uid 0 = root, o todo-poderoso."},
+    {"id": 35, "tema": "Usuários", "titulo": "Como criar a usuária `ana` num servidor Ubuntu (como admin)?", "opcoes": ["new ana (será que cria?)", "create-user ana (clica?)", "useradd.exe ana (Windows?)", "sudo adduser ana (completo)"], "correta": 3, "explicacao": "adduser cria usuário com pasta e senha (interativo). useradd é a versão crua. deluser remove. Sempre com sudo."},
+    {"id": 36, "tema": "Usuários", "titulo": "Como trocar a SUA senha no Linux?", "opcoes": ["password --change (chuta?)", "senha nova123 (digita?)", "passwd (pede atual e nova)", "sudo i-am-root (mentira?)"], "correta": 2, "explicacao": "passwd troca sua senha; sudo passwd ana troca a da ana (admin). Senha não aparece nem como **** ao digitar — é normal."},
+    {"id": 37, "tema": "Usuários", "titulo": "Como ver quem está logado no servidor agora?", "opcoes": ["who (quem tá logado)", "users-online.com (site?)", "facebook --logged (oi?)", "ping everybody (chama?)"], "correta": 0, "explicacao": "who mostra quem está dentro, de onde e desde quando. w mostra também o que estão fazendo. Básico em servidor compartilhado."},
+    {"id": 38, "tema": "Disco", "titulo": "O deploy falhou: disco cheio? Como ver o espaço livre de forma legível?", "opcoes": ["disk --free (existe?)", "df -h (livre, legível)", "ls -h / (lista raiz)", "free-disk (libera?)"], "correta": 1, "explicacao": "df = disk free (-h = human readable). Disco cheio derruba banco, trava deploy e corrompe log. Cheque antes de tudo."},
+    {"id": 39, "tema": "Disco", "titulo": "Qual pasta está comendo seu disco? Como ver o tamanho de cada uma?", "opcoes": ["size * (mede tudo?)", "ls --fat (só os gordos?)", "du -sh * (mede cada um)", "big-folders (lista quais?)"], "correta": 2, "explicacao": "du = disk usage: -s resume, -h legível. du -sh * | sort -h ranqueia do menor ao maior. Caça-loga oficial dos devs."},
+    {"id": 40, "tema": "Sistema", "titulo": "Como ver a memória RAM livre de forma legível?", "opcoes": ["ram --status (e aí?)", "memory please (por favor?)", "cat /ram (abre o pente?)", "free -h (total e livre)"], "correta": 3, "explicacao": "free -h mostra RAM e swap. Servidor lento? free + top contam a história. Swap alto = RAM não deu conta."},
+    {"id": 41, "tema": "Processos", "titulo": "Como monitorar CPU e processos AO VIVO e sair com a tecla q?", "opcoes": ["ps --live (foto viva?)", "watch-tv (pipoca?)", "top (q sai; htop é +)", "cpu-monitor.exe (Win?)"], "correta": 2, "explicacao": "top atualiza em tempo real; q sai. htop é colorido e permite matar com F9. ps aux é a foto; top é o filme."},
+    {"id": 42, "tema": "Serviços", "titulo": "Como ver se o serviço nginx está rodando no systemd?", "opcoes": ["systemctl status nginx", "nginx --are-you-ok", "service? nginx (hein?)", "check nginx (confere?)"], "correta": 0, "explicacao": "systemctl status/start/stop/restart/enable controla serviços no systemd (quase todo Linux moderno). enable liga junto com o boot."},
+    {"id": 43, "tema": "Logs", "titulo": "Onde ficam os logs do sistema e como ver os de um serviço?", "opcoes": ["/tmp e cat em tudo", "/var/log + journalctl -u", "lixeira do sistema (limpa?)", "nuvem: logs sempre lá"], "correta": 1, "explicacao": "/var/log guarda os arquivos; journalctl lê o diário do systemd (-u filtra o serviço, -f acompanha ao vivo). tail -f também vale."},
+    {"id": 44, "tema": "Sistema", "titulo": "Como ver versão do kernel e nome da máquina de uma vez?", "opcoes": ["version --all (mostra?)", "about this pc (clica?)", "system --info (resume?)", "uname -a (kernel e tudo)"], "correta": 3, "explicacao": "uname -a cospe tudo: Linux, hostname, versão do kernel, arquitetura. hostname sozinho dá só o nome. lsb_release -a dá a distro."},
+    {"id": 45, "tema": "Rede", "titulo": "Como descobrir o IP da sua própria máquina no Linux moderno?", "opcoes": ["ip a (interfaces e IPs)", "what-is-my-ip --local", "ping eu-mesmo (eco?)", "ifconfig.exe (saudade?)"], "correta": 0, "explicacao": "ip a (ou ip addr) substituiu o ifconfig. Procure inet 192.168... hostname -I é o atalho direto só para os IPs."},
+    {"id": 46, "tema": "Rede", "titulo": "Como copiar foto.jpg para um servidor via SSH de forma segura?", "opcoes": ["manda no WhatsApp (rápido?)", "email p/ servidor@net", "scp foto ana@srv:/home/ana/", "ftp sem senha (perigo?)"], "correta": 2, "explicacao": "scp copia sobre SSH (criptografado). -r copia pastas. rsync -avz é o primo mais esperto para sincronizar."},
+    {"id": 47, "tema": "Rede", "titulo": "Como baixar um arquivo da internet direto no terminal?", "opcoes": ["download.exe url (Win?)", "wget url (baixa direto)", "chrome url --terminal", "save-as --server (onde?)"], "correta": 1, "explicacao": "wget baixa direto; curl -O também. curl sem -O joga o conteúdo na tela (ótimo para testar APIs). Servidor não tem navegador — tem wget."},
+    {"id": 48, "tema": "Permissões", "titulo": "O script backup.sh não executa (Permission denied). Qual a cura?", "opcoes": ["chmod +x backup.sh (libera)", "sudo please backup.sh", "mv p/ backup.exe (Win?)", "cat backup.sh | executar"], "correta": 0, "explicacao": "+x = permissão de executar. Ou chmod 755 (dono tudo, resto lê+executa). Baixou script da net? Confira o conteúdo antes do +x."},
+    {"id": 49, "tema": "Permissões", "titulo": "Como passar o arquivo site/ para o usuário `ana` (como root)?", "opcoes": ["sudo chmod ana site/", "sudo i-give ana site/", "arrasta na interface (GUI?)", "sudo chown ana site/ (dono)"], "correta": 3, "explicacao": "chown = change owner (só root). chown ana:time muda dono e grupo. chgrp muda só o grupo. Erro de dono quebra deploy direto."},
+    {"id": 50, "tema": "Permissões", "titulo": "No `ls -l`, como saber se `fotos` é pasta e `a.txt` é arquivo?", "opcoes": ["Pela cor do terminal", "Pastas terminam em .dir", "1ª letra: d=pasta, -=arq", "Não dá para saber"], "correta": 2, "explicacao": "drwxr-xr-x = diretório; -rw-r--r-- = arquivo. l = link simbólico. Essa letrinha decide se cd entra ou não."},
+    {"id": 51, "tema": "Processos", "titulo": "O `kill 666` não matou o processo teimoso. E agora?", "opcoes": ["kill harder 666 (força?)", "kill -9 666 (força total)", "Desliga o monitor (some?)", "Espera se arrepender"], "correta": 1, "explicacao": "kill pede com educação (SIGTERM); -9 mata na hora (SIGKILL), sem salvar nada. Use -9 só quando o normal falhar."},
+    {"id": 52, "tema": "Processos", "titulo": "Como rodar o backup e continuar usando o terminal ao mesmo tempo?", "opcoes": ["./backup.sh & (2º plano)", "./backup.sh --vai-eu-fico", "Compra outro PC (rico?)", "jobs --do-it (sozinho?)"], "correta": 0, "explicacao": "& roda em background; jobs lista; fg traz de volta. nohup + & sobrevive ao logout. Essencial para tarefas longas no servidor."},
+    {"id": 53, "tema": "Processos", "titulo": "O que é o PID que aparece no `ps aux`?", "opcoes": ["A senha secreta dele", "A porta de rede usada", "O tamanho em MB", "O nº de identidade dele"], "correta": 3, "explicacao": "PID = process ID, único por processo. kill, top e logs falam por PID. PPID é o pai. killall mata pelo nome."},
+    {"id": 54, "tema": "Pacotes", "titulo": "Qual a diferença entre `apt update` e `apt upgrade`?", "opcoes": ["update=lista; upgrade=pacotes", "São a mesma coisa, juro", "update instala tudo sozinho", "upgrade muda o papel de parede"], "correta": 0, "explicacao": "update baixa o catálogo; upgrade instala as versões novas. Ordem certa: update, depois upgrade. -y confirma tudo sozinho."},
+    {"id": 55, "tema": "Pacotes", "titulo": "No Fedora/RHEL, qual gerenciador substitui o apt?", "opcoes": ["play-store (Android?)", "chocolatey (Windows?)", "dnf (era yum)", "apt-fedora (mistureba?)"], "correta": 2, "explicacao": "Debian/Ubuntu = apt; Fedora/RHEL = dnf; Arch = pacman. Mesma ideia, sotaques diferentes. Profissional reconhece os três."},
+    {"id": 56, "tema": "Arquivos", "titulo": "Como criar um atalho `atual` que aponta para a pasta `backup-2026/`?", "opcoes": ["atalho atual backup/ (?)", "ln -s backup/ atual", "copy --link atual (?)", "paste-shortcut atual"], "correta": 1, "explicacao": "ln -s cria symlink (atalho). Sem -s cria hardlink. ls -l mostra l e a seta ->. Quebrou o original? O atalho vira fantasma."},
+    {"id": 57, "tema": "Arquivos", "titulo": "Como ver a estrutura de pastas em forma de árvore?", "opcoes": ["ls --arvore-de-natal (festa?)", "forest / (passeio na mata?)", "cat --tree (concatena árvore?)", "tree (desenha a hierarquia)"], "correta": 3, "explicacao": "tree desenha a hierarquia. -L 2 limita a profundidade. find . também lista tudo, mas sem o desenho bonito."},
+    {"id": 58, "tema": "Arquivos", "titulo": "O arquivo é gigante e o cat trava a tela. Como ler com calma?", "opcoes": ["cat --devagar arq (lento?)", "more-please arq (por favor?)", "Lê no celular (pequeno?)", "less arq (setas; q sai)"], "correta": 3, "explicacao": "less pagina: setas/etapa, / busca, q sai. more é o primo antigo (só desce). Padrão para logs quilométricos."},
+    {"id": 59, "tema": "Arquivos", "titulo": "Como copiar a pasta `fotos/` inteira para `backup/`?", "opcoes": ["cp -r fotos/ backup/", "cp fotos/ backup/ (sem -r?)", "copy-folder fotos backup", "mv fotos/ backup/ (e some?)"], "correta": 0, "explicacao": "-r = recursivo (entra nas subpastas). Sem -r, cp de pasta dá erro. mv MOVERIA em vez de copiar — cuidado!"},
+    {"id": 60, "tema": "Permissões", "titulo": "O que significa a permissão 644 (rw-r--r--)?", "opcoes": ["Todo mundo pode tudo", "Ninguém pode nada", "dono r+w; resto só lê", "Só executa, nem lê"], "correta": 2, "explicacao": "6 = 4+2 (r+w) do dono; 4 = só leitura pros demais. 644 é o padrão de arquivos web; 755 de pastas e scripts."}
+  ],
+  "desafios": [
+    {
+      "id": "d1",
+      "ato": "DESAFIO · ATO I",
+      "titulo": "Desafio 1: Finque sua bandeira 🚩",
+      "historia": "Todo hacker marca território. Mostre que você manda no abrigo — sem ninguém te dizer o comando.",
+      "objetivo": "Crie um arquivo chamado bandeira.txt em qualquer lugar e escreva alguma coisa dentro dele (4 letras ou mais).",
+      "dica_vaga": "Você vai precisar de 2 truques: um que CRIA arquivo vazio e outro que ESCREVE texto dentro. Reveja a Missão 5 se travar.",
+      "xp": 100,
+      "tarefas": [
+        {"id": "d1a", "texto": "Criar o arquivo bandeira.txt (sem dica de comando! 🤫)", "valida": {"tipo": "arq_existe", "valor": "bandeira.txt"}},
+        {"id": "d1b", "texto": "Escrever algo dentro dele (4+ caracteres)", "valida": {"tipo": "arq_com_texto", "valor": "bandeira.txt"}}
+      ]
+    },
+    {
+      "id": "d2",
+      "ato": "DESAFIO · ATO II",
+      "titulo": "Desafio 2: Labirinto às cegas 🌀",
+      "historia": "Apagaram as placas da cidade. Chegue à escola sozinho e volte para casa — no escuro.",
+      "objetivo": "Saia de onde estiver, chegue até /cidade/escola e depois volte para a sua casa (/home/sobrevivente).",
+      "dica_vaga": "Só com navegação: entrar, voltar um nível e atalho de casa. O comando de 'onde estou?' é seu melhor amigo.",
+      "xp": 150,
+      "tarefas": [
+        {"id": "d2a", "texto": "Chegar em /cidade/escola (sem dizer como! 🧭)", "valida": {"tipo": "dir_atual", "valor": "/cidade/escola"}},
+        {"id": "d2b", "texto": "Voltar para casa: /home/sobrevivente", "valida": {"tipo": "dir_atual", "valor": "/home/sobrevivente"}}
+      ]
+    },
+    {
+      "id": "d3",
+      "ato": "DESAFIO · ATO III",
+      "titulo": "Desafio 3: Cofre do tesouro 💰",
+      "historia": "Você achou OURO (digamos que sim). Esconda a palavra mágica onde ninguém olha.",
+      "objetivo": "Crie uma pasta chamada tesouro, crie dentro dela um arquivo pista.txt contendo a palavra ouro.",
+      "dica_vaga": "Três passos: pasta nova → arquivo novo dentro dela → texto dentro do arquivo. A ordem importa!",
+      "xp": 200,
+      "tarefas": [
+        {"id": "d3a", "texto": "Criar a pasta tesouro", "valida": {"tipo": "dir_existe", "valor": "tesouro"}},
+        {"id": "d3b", "texto": "Criar o arquivo pista.txt dentro do tesouro", "valida": {"tipo": "arq_existe", "valor": "tesouro/pista.txt"}},
+        {"id": "d3c", "texto": "Esconder a palavra ouro dentro da pista", "valida": {"tipo": "arq_contem", "valor": "tesouro/pista.txt", "contem": "ouro"}}
+      ]
+    },
+    {
+      "id": "d4",
+      "ato": "DESAFIO · ATO IV",
+      "titulo": "Desafio 4: Modo detetive 🔍",
+      "historia": "Um sobrevivente deixou recados espalhados. Ache todos os .txt da cidade e filtre quem fala de remédio.",
+      "objetivo": "Use busca para listar arquivos .txt e use filtro de texto para achar a palavra remedios em algum arquivo.",
+      "dica_vaga": "Um comando ACHA arquivos pelo nome, o outro FILTRA linhas com uma palavra. E dá pra juntar os dois com uma barrinha mágica...",
+      "xp": 200,
+      "tarefas": [
+        {"id": "d4a", "texto": "Achar arquivos usando busca por nome (find)", "valida": {"tipo": "comando", "contem": "find"}},
+        {"id": "d4b", "texto": "Filtrar texto dentro de arquivos ou da saída (grep)", "valida": {"tipo": "comando", "contem": "grep"}}
+      ]
+    },
+    {
+      "id": "d5",
+      "ato": "DESAFIO · ATO FINAL",
+      "titulo": "Desafio 5: Operação resgate 🚁",
+      "historia": "O helicóptero chega em 5 minutos. Prepare o kit de evacuação: pasta, backup do diário e queima de isca.",
+      "objetivo": "Crie a pasta resgate, COPIE o diario.txt para dentro dela e apague algum arquivo com rm.",
+      "dica_vaga": "Copiar ≠ mover: um duplica, o outro some da origem. E apagar não tem Ctrl+Z... crie uma isca primeiro se for esperto.",
+      "xp": 300,
+      "tarefas": [
+        {"id": "d5a", "texto": "Criar a pasta resgate", "valida": {"tipo": "dir_existe", "valor": "resgate"}},
+        {"id": "d5b", "texto": "Copiar diario.txt para dentro do resgate (o original continua!)", "valida": {"tipo": "arq_existe", "valor": "resgate/diario.txt"}},
+        {"id": "d5c", "texto": "Apagar qualquer arquivo com rm", "valida": {"tipo": "comando", "contem": "rm"}}
+      ]
+    },
+    {
+      "id": "d6",
+      "ato": "DESAFIO · ATO V",
+      "titulo": "Desafio 6: Crônica do apocalipse",
+      "historia": "Futuros sobreviventes vão ler sua história. Escreva uma crônica sem apagar nada do que já existe.",
+      "objetivo": "Crie o arquivo cronica.txt e adicione pelo menos 2 linhas de texto nele SEM apagar o conteúdo anterior.",
+      "dica_vaga": "Existe um símbolo que escreve e outro que ADICIONA. Usar o errado apaga sua história... A Missão 11 ensina a diferença.",
+      "xp": 250,
+      "tarefas": [
+        {"id": "d6a", "texto": "Criar o arquivo cronica.txt", "valida": {"tipo": "arq_existe", "valor": "cronica.txt"}},
+        {"id": "d6b", "texto": "Adicionar texto sem apagar (use >>, não >)", "valida": {"tipo": "comando", "contem": ">>"}},
+        {"id": "d6c", "texto": "Ter pelo menos 2 linhas escritas na crônica", "valida": {"tipo": "arq_com_texto", "valor": "cronica.txt"}}
+      ]
+    },
+    {
+      "id": "d7",
+      "ato": "DESAFIO · ATO V",
+      "titulo": "Desafio 7: Médico do sistema",
+      "historia": "O abrigo está lento e estranho. Faça o diagnóstico completo antes de chamar o resgate.",
+      "objetivo": "Cheque disco, memória e processos — os 3 exames do pronto-socorro Linux.",
+      "dica_vaga": "Três comandos da Missão 12 + um da Missão 9. Um mostra o disco, outro a RAM, outro quem está vivo na máquina.",
+      "xp": 250,
+      "tarefas": [
+        {"id": "d7a", "texto": "Examinar o disco", "valida": {"tipo": "comando", "contem": "df"}},
+        {"id": "d7b", "texto": "Examinar a memória", "valida": {"tipo": "comando", "contem": "free"}},
+        {"id": "d7c", "texto": "Examinar os processos vivos", "valida": {"tipo": "comando", "contem": "ps"}}
+      ]
+    },
+    {
+      "id": "d8",
+      "ato": "DESAFIO · ATO VI",
+      "titulo": "Desafio 8: Kit do operador",
+      "historia": "Vaga de estágio dos sonhos: prove que você opera o terminal com velocidade e precisão.",
+      "objetivo": "Crie um alias, liste arquivos com coringa, descubra seu IP e baixe um pacote — tudo sem olhar a resposta.",
+      "dica_vaga": "Quatro comandos de duas missões diferentes (13 e 15). Um apelida, um filtra por padrão, um mostra a rede, um baixa.",
+      "xp": 300,
+      "tarefas": [
+        {"id": "d8a", "texto": "Criar um alias qualquer", "valida": {"tipo": "comando", "contem": "alias"}},
+        {"id": "d8b", "texto": "Listar arquivos usando coringa *", "valida": {"tipo": "comando", "contem": "*"}},
+        {"id": "d8c", "texto": "Descobrir o IP da máquina", "valida": {"tipo": "comando", "contem": "ip"}},
+        {"id": "d8d", "texto": "Baixar algo com wget", "valida": {"tipo": "comando", "contem": "wget"}}
+      ]
+    }
+  ]
+}
