@@ -11,5 +11,5 @@
 {% endblock %}
 {% block scripts %}
 <script src="{{ url_for('static', filename='terminal.js') }}"></script>
-<script>initTerminal("tbody","tinput","prompt");document.getElementById("tinput").focus();</script>
+<script>initTerminal("tbody","tinput","prompt");if ('scrollRestoration' in history) history.scrollRestoration = 'manual';window.scrollTo(0,0);document.getElementById("tinput").focus({preventScroll:true});</script>
 {% endblock %}

@@ -59,6 +59,8 @@ document.getElementById("resetf").addEventListener("submit", async e=>{
   await fetch("/api/reset", {method:"POST"});
   location.reload();
 });
-document.getElementById("tinput").focus();
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
+document.getElementById("tinput").focus({preventScroll: true});
 </script>
 {% endblock %}
