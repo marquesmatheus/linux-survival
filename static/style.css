@@ -142,7 +142,7 @@ footer .evento-nome{font-family:"Special Elite",monospace;color:var(--ink);lette
 .placar .pontos small{font-size:1.6rem;color:var(--muted)}
 .placar .pct{font-family:"Special Elite",monospace;font-size:1.4rem;color:var(--ink)}
 .placar h2{border:none;padding:0}
-.placar-img{max-width:420px;width:100%;height:auto;border:2px solid #000;margin-bottom:12px}
+.placar-img{max-width:640px;width:100%;height:auto;border:2px solid #000;margin-bottom:12px}
 li.certa{color:var(--green);font-weight:bold}
 li.errada{color:var(--blood);text-decoration:line-through}
 .credits{font-size:.75rem;color:#8a7a5f}
