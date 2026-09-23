@@ -4,9 +4,20 @@
 <div class="card {% if last.acertou %}pop{% endif %}">
 <p><span class="badge">{{ last.tema }}</span> Questão {{ last.n }}</p>
 <h3>{{ last.titulo }}</h3>
+{% if last.acertou %}
+<div class="ok-box">Você acertou: <b>{{ letters[last.correta] }}) {{ last.opcoes[last.correta] }}</b> ✔</div>
+{% else %}
+{% if last.escolha is not none and last.escolha >= 0 %}
+<div class="alert">Você marcou: <b>{{ letters[last.escolha] }}) {{ last.opcoes[last.escolha] }}</b> ✘</div>
+{% else %}
+<div class="alert">Você não marcou nada nessa. ✘</div>
+{% endif %}
+<div class="ok-box">A certa era: <b>{{ letters[last.correta] }}) {{ last.opcoes[last.correta] }}</b> ✔</div>
+{% endif %}
 <ul>
 {% for op in last.opcoes %}
-<li {% if loop.index0==last.correta %}style="color:var(--lime);font-weight:bold"{% endif %}>{{ letters[loop.index0] }}) {{ op }} {% if loop.index0==last.correta %}✔{% endif %} {% if loop.index0==last.escolha and not last.acertou %}← sua resposta{% endif %}</li>
+<li {% if loop.index0==last.correta %}class="certa"{% elif loop.index0==last.escolha %}class="errada"{% endif %}>{{ letters[loop.index0] }}) {{ op }}
+{% if loop.index0==last.correta %} ✔ certa{% endif %}{% if loop.index0==last.escolha and not last.acertou %} ← você{% endif %}</li>
 {% endfor %}
 </ul>
 <p>💡 <b>Por quê?</b> {{ last.explicacao }}</p>

@@ -1,20 +1,35 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>🏆 {{ modo_nome }}</h1>
-<div class="hero"><h2>{{ msg }}</h2>
-<p class="sub">{{ user }} — {{ acertos }}/{{ total }} ({{ percentual }}%) • {{ posicao }}º no ranking</p>
-<p><a class="btn" href="{{ url_for('ranking') }}">Ver ranking 🏆</a>
-<a class="btn pink" href="{{ url_rejogar }}">Jogar de novo ⚡</a>
-<a class="btn ghost" href="{{ url_for('mapa') }}">Voltar à trilha</a></p></div>
-<h2>📝 Revisão da partida</h2>
+<div class="placar">
+  <span class="badge">⭐ {{ modo_nome }}</span>
+  <div class="pontos">{{ acertos }}<small>/{{ total }}</small></div>
+  <div class="pct">{{ percentual }}%</div>
+  <h2>{{ msg }}</h2>
+  <p>{{ user }} • {{ posicao }}º no ranking</p>
+  <p><a class="btn" href="{{ url_for('ranking') }}">Ver ranking 🏆</a>
+  <a class="btn ghost" href="{{ url_rejogar }}">Jogar de novo ⚡</a>
+  <a class="btn ghost" href="{{ url_for('mapa') }}">Voltar à trilha</a></p>
+</div>
+<h2>📝 Revisão da partida — veja o que errou e por quê</h2>
 {% for r in revisao %}
 <div class="card {% if r.acertou %}pop{% endif %}">
 <p>{% if r.acertou %}✅{% else %}❌{% endif %} <b>Q{{ r.n }}</b> <span class="badge">{{ r.tema }}</span> — {{ r.titulo }}</p>
+{% if r.acertou %}
+<div class="ok-box">Você acertou: <b>{{ letters[r.correta] }}) {{ r.opcoes[r.correta] }}</b> ✔</div>
+{% else %}
+{% if r.escolha is not none and r.escolha >= 0 %}
+<div class="alert">Você marcou: <b>{{ letters[r.escolha] }}) {{ r.opcoes[r.escolha] }}</b> ✘</div>
+{% else %}
+<div class="alert">Você não marcou nada nessa. ✘</div>
+{% endif %}
+<div class="ok-box">A certa era: <b>{{ letters[r.correta] }}) {{ r.opcoes[r.correta] }}</b> ✔</div>
+{% endif %}
 <ul>
 {% for op in r.opcoes %}
-<li {% if loop.index0==r.correta %}style="color:var(--lime);font-weight:bold"{% endif %}>{{ letters[loop.index0] }}) {{ op }}</li>
+<li {% if loop.index0==r.correta %}class="certa"{% elif loop.index0==r.escolha %}class="errada"{% endif %}>{{ letters[loop.index0] }}) {{ op }}
+{% if loop.index0==r.correta %} ✔ certa{% endif %}{% if loop.index0==r.escolha and not r.acertou %} ← você{% endif %}</li>
 {% endfor %}</ul>
-<p style="color:var(--muted)">💡 {{ r.explicacao }}</p>
+<p style="color:var(--muted)">💡 <b>Por que errou?</b> {{ r.explicacao }}</p>
 </div>
 {% endfor %}
 {% endblock %}

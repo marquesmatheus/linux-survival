@@ -928,7 +928,7 @@ def resultado():
     if pct == 100: msg = "LENDÁRIO! 🏆 Você zerou o Quiz Final!"
     elif pct >= 80: msg = "NÍVEL SÊNIOR! 🚀 As empresas te querem!"
     elif pct >= 60: msg = "NÍVEL PLENO! 🔥 Mandou muito bem!"
-    elif pct >= 40: msg = "BOM COMEÇO! 💪 Bora pra Arena treinar mais?"
+    elif pct >= 40: msg = "BOM COMEÇO! 💪 Revise a trilha e jogue de novo!"
     else: msg = "NÃO DESISTA! 🌱 Revise a trilha e tente de novo!"
     rank = sorted([x for x in load_results() if x.get("modo", "quiz") == "quiz"],
                   key=lambda r: (-r.get("percentual", 0), -r.get("acertos", 0)))

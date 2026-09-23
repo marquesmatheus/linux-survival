@@ -136,5 +136,13 @@ footer{text-align:center;color:var(--muted);padding:28px;font-size:.85rem}
 footer a{color:var(--muted)}
 footer .evento-nome{font-family:"Special Elite",monospace;color:var(--ink);letter-spacing:1px}
 .medal{font-size:1.2rem}
+.placar{background:var(--card);border:2px solid var(--blood);border-radius:4px;text-align:center;
+  padding:30px 20px;margin:16px 0;box-shadow:6px 6px 0 rgba(185,28,28,.25)}
+.placar .pontos{font-family:"Special Elite",monospace;font-size:4rem;color:var(--blood);line-height:1}
+.placar .pontos small{font-size:1.6rem;color:var(--muted)}
+.placar .pct{font-family:"Special Elite",monospace;font-size:1.4rem;color:var(--ink)}
+.placar h2{border:none;padding:0}
+li.certa{color:var(--green);font-weight:bold}
+li.errada{color:var(--blood);text-decoration:line-through}
 .credits{font-size:.75rem;color:#8a7a5f}
 @media(max-width:700px){.term-body{height:320px}.hero{min-height:340px}}
