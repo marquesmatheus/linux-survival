@@ -82,7 +82,7 @@ a{color:var(--blood)}
 .missao-card.lock{border-top:6px double var(--rust)}
 .missao-card h3{margin:.4rem 0}
 .badge{display:inline-block;font-family:"Special Elite",monospace;font-size:.72rem;letter-spacing:1px;
-  padding:3px 10px;background:#241b12;color:#f5c518;border:1px solid #241b12;text-transform:uppercase}
+  padding:3px 10px;background:#f3e8c8;color:#5b4a1f;border:1px solid #8a7a5f;text-transform:uppercase}
 .badge.ok{background:#e7f6e9;color:var(--green);border-color:var(--green)}
 .badge.xp{background:#fde8e8;color:var(--blood);border-color:var(--blood)}
 input[type=text]{width:100%;padding:13px 14px;background:#fff;border:2px solid var(--ink);
@@ -142,6 +142,7 @@ footer .evento-nome{font-family:"Special Elite",monospace;color:var(--ink);lette
 .placar .pontos small{font-size:1.6rem;color:var(--muted)}
 .placar .pct{font-family:"Special Elite",monospace;font-size:1.4rem;color:var(--ink)}
 .placar h2{border:none;padding:0}
+.placar-img{max-width:420px;width:100%;height:auto;border:2px solid #000;margin-bottom:12px}
 li.certa{color:var(--green);font-weight:bold}
 li.errada{color:var(--blood);text-decoration:line-through}
 .credits{font-size:.75rem;color:#8a7a5f}

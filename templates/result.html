@@ -1,7 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="placar">
-  <span class="badge">⭐ {{ modo_nome }}</span>
+  {% if percentual >= 90 %}
+  <img class="placar-img" src="{{ url_for('static', filename='img/quiztop.jpg') }}" alt="Lendário! Top demais!">
+  {% elif percentual >= 50 %}
+  <img class="placar-img" src="{{ url_for('static', filename='img/quizfeliz.jpg') }}" alt="Mandou bem!">
+  {% else %}
+  <img class="placar-img" src="{{ url_for('static', filename='img/quiztriste.jpg') }}" alt="Não foi dessa vez, tente de novo!">
+  {% endif %}
   <div class="pontos">{{ acertos }}<small>/{{ total }}</small></div>
   <div class="pct">{{ percentual }}%</div>
   <h2>{{ msg }}</h2>
